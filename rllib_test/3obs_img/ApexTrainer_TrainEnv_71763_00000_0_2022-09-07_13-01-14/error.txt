@@ -1,0 +1,24 @@
+Failure # 1 (occurred at 2022-09-07_13-01-16)
+Traceback (most recent call last):
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\ray_trial_executor.py", line 508, in start_trial
+    return self._start_trial(trial)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\ray_trial_executor.py", line 414, in _start_trial
+    runner = self._setup_remote_runner(trial)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\ray_trial_executor.py", line 355, in _setup_remote_runner
+    return full_actor_class.remote(**kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\actor.py", line 613, in remote
+    **cls_options,
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 383, in _invocation_actor_class_remote_span
+    return method(self, args, kwargs, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\actor.py", line 1001, in _remote
+    scheduling_strategy=scheduling_strategy,
+  File "python\ray\_raylet.pyx", line 1578, in ray._raylet.CoreWorker.create_actor
+  File "python\ray\_raylet.pyx", line 1583, in ray._raylet.CoreWorker.create_actor
+  File "python\ray\_raylet.pyx", line 379, in ray._raylet.prepare_args_and_increment_put_refs
+  File "python\ray\_raylet.pyx", line 370, in ray._raylet.prepare_args_and_increment_put_refs
+  File "python\ray\_raylet.pyx", line 459, in ray._raylet.prepare_args_internal
+  File "python\ray\_raylet.pyx", line 1351, in ray._raylet.CoreWorker.put_serialized_object_and_increment_local_ref
+  File "python\ray\_raylet.pyx", line 1241, in ray._raylet.CoreWorker._create_put_buffer
+  File "python\ray\_raylet.pyx", line 173, in ray._raylet.check_status
+ray.exceptions.RaySystemError: System error: Unknown error
+

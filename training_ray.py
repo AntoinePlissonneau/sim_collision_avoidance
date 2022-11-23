@@ -28,7 +28,7 @@ if __name__ == '__main__':
     import ray
     from ray import tune
     from callbacks import MyCallbacks
-    
+    import custom_policies_ray
     
     config = configparser.ConfigParser()
     config.read("params_RL.ini")

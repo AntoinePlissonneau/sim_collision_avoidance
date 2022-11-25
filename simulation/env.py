@@ -231,6 +231,7 @@ class TrainEnv(gym.Env):
 
 
 if __name__ == "__main__":
+    
     env = TrainEnv(ImgObservationBuilder, {})
     env.reset()
     env.step([1])

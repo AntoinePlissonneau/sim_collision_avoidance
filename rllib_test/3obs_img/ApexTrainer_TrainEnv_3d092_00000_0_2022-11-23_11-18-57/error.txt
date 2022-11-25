@@ -1,0 +1,67 @@
+Failure # 1 (occurred at 2022-11-23_11-19-09)
+Traceback (most recent call last):
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\ray_trial_executor.py", line 901, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\worker.py", line 1811, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::ApexTrainer.__init__()[39m (pid=8136, ip=127.0.0.1, repr=ApexTrainer)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 1035, in _init
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+[36mray::ApexTrainer.__init__()[39m (pid=8136, ip=127.0.0.1, repr=ApexTrainer)
+  File "python\ray\_raylet.pyx", line 656, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 697, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 663, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 667, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 614, in ray._raylet.execute_task.function_executor
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\function_manager.py", line 701, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 831, in __init__
+    config, logger_creator, remote_checkpoint_dir, sync_function_tpl
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\trainable.py", line 149, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 918, in setup
+    logdir=self.logdir,
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 136, in __init__
+    lambda p, pid: (pid, p.observation_space, p.action_space)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\worker.py", line 1811, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::RolloutWorker.__init__()[39m (pid=22340, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x000001473309A408>)
+  File "python\ray\_raylet.pyx", line 663, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 667, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 614, in ray._raylet.execute_task.function_executor
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\function_manager.py", line 701, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 630, in __init__
+    seed=seed,
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 1723, in _build_policy_map
+    name, orig_cls, obs_space, act_space, conf, merged_conf
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\policy\policy_map.py", line 152, in create_policy
+    self[policy_id] = class_(observation_space, action_space, merged_config)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\policy\policy_template.py", line 279, in __init__
+    self, obs_space, action_space, config
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\dqn\dqn_torch_policy.py", line 197, in build_q_model_and_distribution
+    add_layer_norm=add_layer_norm,
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\models\catalog.py", line 461, in get_model_v2
+    RLLIB_MODEL, model_config["custom_model"]
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\registry.py", line 182, in get
+    "Registry value for {}/{} doesn't exist.".format(category, key)
+ValueError: Registry value for rllib_model/LowresCNNLSTM doesn't exist.
+

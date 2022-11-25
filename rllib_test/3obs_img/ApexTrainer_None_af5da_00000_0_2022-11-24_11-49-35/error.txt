@@ -1,0 +1,55 @@
+Failure # 1 (occurred at 2022-11-24_11-49-47)
+Traceback (most recent call last):
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\ray_trial_executor.py", line 901, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\worker.py", line 1811, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::ApexTrainer.__init__()[39m (pid=2084, ip=127.0.0.1, repr=ApexTrainer)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 1035, in _init
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+[36mray::ApexTrainer.__init__()[39m (pid=2084, ip=127.0.0.1, repr=ApexTrainer)
+  File "python\ray\_raylet.pyx", line 656, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 697, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 663, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 667, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 614, in ray._raylet.execute_task.function_executor
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\function_manager.py", line 701, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 831, in __init__
+    config, logger_creator, remote_checkpoint_dir, sync_function_tpl
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\tune\trainable.py", line 149, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\agents\trainer.py", line 918, in setup
+    logdir=self.logdir,
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 136, in __init__
+    lambda p, pid: (pid, p.observation_space, p.action_space)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\worker.py", line 1811, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::RolloutWorker.__init__()[39m (pid=23792, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x00000271A2F4A448>)
+  File "python\ray\_raylet.pyx", line 663, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 667, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 614, in ray._raylet.execute_task.function_executor
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\_private\function_manager.py", line 701, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\util\tracing\tracing_helper.py", line 462, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 570, in __init__
+    policy_spec, self.env, spaces=self.spaces, policy_config=policy_config
+  File "C:\Users\Aplissonneau\AppData\Local\Continuum\anaconda3\envs\multitask\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 1870, in _determine_spaces_for_multi_agent_dict
+    "`observation_space` not provided in PolicySpec for "
+ValueError: `observation_space` not provided in PolicySpec for default_policy and env does not have an observation space OR no spaces received from other workers' env(s) OR no `observation_space` specified in config!
+

@@ -17,3 +17,9 @@ python training_ray.py
 ## Testing
 
 python test_ray.py
+
+
+## Analysis
+
+The data and scripts used to compute the figures and the table presented in the paper are available in the "Analysis" folder. 
+

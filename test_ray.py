@@ -118,6 +118,7 @@ def eval_ini(ini_config):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import os
+    os.environ['KMP_DUPLICATE_LIB_OK']='True'
     import configparser
     from observation_builder.obs_builder import ImgObservationBuilder, SimpleObservationBuilder, ImgSeqObservationBuilder, ImgStackObservationBuilder
     from simulation.env import TrainEnv
@@ -129,23 +130,25 @@ if __name__ == '__main__':
     from ray import tune
     from ray.rllib.models import ModelCatalog
     import json
+    import rllib_configs as configs
     
-    config = configparser.ConfigParser()
-    config.read("/home/aplissonneau/simulateur/params_RL.ini")
-    config  = eval_ini(config)
+    policy_config = configs.APEX_TEST_CONFIG
+    # config = configparser.ConfigParser()
+    # config.read("/home/aplissonneau/simulateur/params_RL.ini")
+    # config  = eval_ini(config)
 #    config = {}
-    config_ray_file = "/home/aplissonneau/simulateur/rllib_test/3obs_img/3/params.json"
+    config_ray_file = "rllib_test/3obs_img/CNN/params.json"
     f=open(config_ray_file)
     config_ray = json.load(f)
     
     
-    policy_config = dqn.APEX_DEFAULT_CONFIG
+    #policy_config = dqn.APEX_DEFAULT_CONFIG
     policy_config["num_workers"] = 1
     policy_config["buffer_size"] = 100000
     
     policy_config['train_batch_size']= 32
     
-    policy_config["env_config"] = config
+    #policy_config["env_config"] = config
     policy_config["env_config"]["env"]["obs_builder"] = ImgObservationBuilder()
     policy_config["framework"] = "torch"
     #    policy_config["run"]=dqn.ApexTrainer
@@ -166,7 +169,7 @@ if __name__ == '__main__':
     policy_config["model"]["custom_model"] = config_ray["model"]["custom_model"]
     
     test_agent = dqn.ApexTrainer(env=TrainEnv, config=policy_config)
-    test_agent.restore("/home/aplissonneau/simulateur/rllib_test/3obs_img/3/checkpoint_000600/checkpoint-600")
+    test_agent.restore("rllib_test/3obs_img/CNN/checkpoint_000600/checkpoint-600")
     policy_config["env_config"]["render"]["render"] = True
     env_test = TrainEnv(policy_config["env_config"])
     
@@ -253,9 +256,9 @@ if __name__ == '__main__':
         "n step":hist["n_step"]}
         
         
-        name = "run5_1000ep_1obs_t"
-        with open(f'analysis/validation/{name}.json', 'w') as fp:
-            json.dump(dict_res, fp,  indent=4)
+        # name = "run5_1000ep_1obs_t"
+        # with open(f'analysis/validation/{name}.json', 'w') as fp:
+            # json.dump(dict_res, fp,  indent=4)
         
         
         

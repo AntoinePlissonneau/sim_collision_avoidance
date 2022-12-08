@@ -1,39 +1,29 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Nov 24 16:02:24 2022
+Created on Sat May 16 21:47:09 2020
 
 @author: aplissonneau
 """
+import sys
+from PyQt5 import QtGui, QtCore
+from gui.gui import App
 
-from simulation.env import TrainEnv
-import rllib_configs as configs
-import keyboard
-import time
-
-
-
-policy_config = configs.APEX_TEST_CONFIG
-policy_config["env_config"]["render"]["render"] = True
-
-env = TrainEnv(policy_config["env_config"])
-
-env.reset()
-
-tx = time.time()
-
-for i in range(1000):
-    action = 1
-    if keyboard.is_pressed('z'):
-        action = 2
-    
-    if keyboard.is_pressed('e'):
-        action = 0
-        
-    a= env.step(action)
-    t2 = time.time()
-    dt = t2 - tx
-    time.sleep((i+1)/10 - dt)
-    print('time', time.time() - tx)
-    print(env.train.speed)
+#filename = 'Model_knn_Decision_1.sav'
+#loaded_model = pickle.load(open(filename, 'rb'))
+#auto = True
+#manual_obs = True
+#REFRESH_TIME = 0.01 # Wael # passage de 0.25 à 0.05
 
 
+
+if __name__ == '__main__':
+    # Start instances
+
+#        s = send(q)
+#        s.start()
+    app = QtCore.QCoreApplication.instance()
+    if app is None:
+        app = QtGui.QApplication(sys.argv)
+    thisapp = App()
+    thisapp.show()
+    sys.exit(app.exec_())

@@ -9,6 +9,8 @@ REFRESH_TIME = 0.1
 
 if __name__ == '__main__':
     import os
+
+    os.environ['KMP_DUPLICATE_LIB_OK']='True'
     import ray.rllib.agents.dqn as dqn
     import ray
     from ray import tune
@@ -31,7 +33,7 @@ if __name__ == '__main__':
         local_dir="rllib_test",
         checkpoint_at_end=True,
         checkpoint_freq=150,
-        #restore="/home/aplissonneau/simulateur/rllib_test/3obs_img/ApexTrainer_TrainEnv_7888c_00000_0_2022-06-05_11-47-11/checkpoint_001450/checkpoint-1450"
+        #restore=""
     )
 
     

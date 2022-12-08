@@ -31,7 +31,7 @@ pip install torch==1.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable
 
 '''
 
-Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml.
+Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml. This requirement file works for Ubuntu 20.04.5 LTS + CUDA 11.4  
 
 
 

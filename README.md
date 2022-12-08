@@ -27,6 +27,8 @@ Several aspect are customizable
 conda env create -f environment.yml
 conda activate simu_col
 pip install torch==1.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+ pip install -U "ray[tune]==1.12.0"
+
 '''
 
 Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml.
@@ -47,8 +49,16 @@ python training_ray.py
 python test_ray.py
 
 
+
+
 ## Project organisation / create your custom agent
 
 - Obs_builder.py : 
 - ...
 - ...
+=======
+## Analysis
+
+The data and scripts used to compute the figures and the table presented in the paper are available in the "Analysis" folder. 
+
+

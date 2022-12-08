@@ -23,13 +23,11 @@ Several aspect are customizable
 
 ## Install
 
-'''bash
+```bash
 conda env create -f environment.yml
 conda activate simu_col
-pip install torch==1.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
- pip install -U "ray[tune]==1.12.0"
+```
 
-'''
 
 Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml. This requirement file works for Ubuntu 20.04.5 LTS + CUDA 11.4  
 

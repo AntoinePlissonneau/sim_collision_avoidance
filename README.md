@@ -16,7 +16,7 @@ time, allowing hours of driving to be simulated in minutes. A graphical visualiz
 and testing and to enable the possibility of driving the train manually with the keyboard, allowing, among other things, the
 use of imitation learning. In this repo, you will find:
 
-- A train collision avoidance simulation environment build on Gym.
+- A train collision avoidance simulation environment built on Gym.
 - A manual driving script with a graphical interface enabling the possibility of driving the train
 manually with the keyboard.
 - The models presented in the paper with their best checkpoints (CNN, CNN-LSTM and CNN-LSTM with predictive auxiliary task and decision tree).
@@ -56,64 +56,52 @@ conda activate simu_col
 
 Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml. This requirement file works for Ubuntu 20.04.5 LTS + CUDA 11.4. If you have installation issues, feel free to contact us.
 
+## Train model
 
- ### Test our models
- This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
+Anyone can use configs created in rllib_config.py or add a new one in the same file. These configs are used to setup the experiment. 
+
+Train an agent with the command:
+
+```
+$ python training_ray.py
+```
+
+## Test models
+This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
  
 ```
 $ python test_ray.py --checkpoint "rllib_test/3obs_img/CNN_LSTM_aux/checkpoint_003600/checkpoint-3600" --show --obs_num 3 --num_ep 1000
 ```
 
-## Arguments
+_Arguments_:
 * `--checkpoint`: path to the checkpoint to test (`str`)
 * `--show`: If used, display the test scenario
 * `--obs_num`: Number of obstacles to use in test scenario
 * `--num_ep`: Number of episode to test on
 
- ### Analyse the validation data
- 
- 
- ### Use your custom models
+## Manual driving
 
-Several aspect are customizable
-
-
-## Install
-
-```bash
-conda env create -f environment.yml
-conda activate simu_col
+```
+$ python manual_driving.py
 ```
 
-
-Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml. This requirement file works for Ubuntu 20.04.5 LTS + CUDA 11.4  
-
-
-
-
-## Experiments configuration
-
-Anyone can use configs created in rllib_config.py or add a new one in the same file. These configs are called on the main scripts.
-
-## Training a model
-
-python training_ray.py
-
-## Testing a model
-
-python test_ray.py
-
-
-
-
-## Project organisation / create your custom agent
-
-- Obs_builder.py : 
-- ...
-- ...
-=======
-## Analysis
-
+## Analyse the data used in the result section of our paper
 The data and scripts used to compute the figures and the table presented in the paper are available in the "Analysis" folder. 
+
+ 
+## Build a custom agent
+
+### Custom policy
+
+### Custom observation builder
+
+
+### Custom dynamics
+
+
+
+
+
+
 
 

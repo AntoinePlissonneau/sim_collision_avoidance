@@ -54,7 +54,7 @@ class App(QtGui.QMainWindow):
         self.res=None
         self.stop_update = False
         self.env = None
-        self.rail_len = 100
+        self.rail_len = 150
         def control_box():
             """Design a control box to set parameters, launch simulation and watch log
             """
@@ -76,19 +76,11 @@ class App(QtGui.QMainWindow):
             self.text_group_box.setLayout(layout_2)
     
     
-            ## Obstacle mode option (random walk, manual)
-            layout_obstacle_mode =  QHBoxLayout()
-            label_obstacle_mode = QLabel("Obstacle mode: ")
-            self.obstacle_mode = QComboBox()
-            self.obstacle_mode.addItems(["Random Walk", "Manual"]) 
-            layout_obstacle_mode.addWidget(label_obstacle_mode)
-            layout_obstacle_mode.addWidget(self.obstacle_mode)
-            layout_obstacle_mode.insertSpacing(-1,100)
             
             layout_obstacle_num =  QHBoxLayout()
             label_obstacle_num = QLabel("Obstacle num: ")
             self.obstacle_num = QSpinBox()
-            self.obstacle_num.setRange(1, 10) 
+            self.obstacle_num.setRange(1, 5) 
             self.obstacle_num.setValue(2)
             #self.obstacle_mode
             layout_obstacle_num.addWidget(label_obstacle_num)
@@ -96,39 +88,11 @@ class App(QtGui.QMainWindow):
             layout_obstacle_num.insertSpacing(-1,100)
             
             
-            ## Train speed
-            layout_train_speed =  QHBoxLayout()
-            label_train_speed = QLabel("Train max speed:")
-            self.train_speed = QSpinBox()
-            self.train_speed.setRange(1, 15)
-            self.train_speed.setValue(2)
-            self.train_speed.setMaximumWidth(100)
-            layout_train_speed.addWidget(label_train_speed)
-            layout_train_speed.addWidget(self.train_speed)
-            layout_train_speed.insertSpacing(-1,100)
-
-            ## Obstacle speed
-            layout_obstacle_speed =  QHBoxLayout()
-            label_obstacle_speed = QLabel("Obstacle max speed:")
-            self.obstacle_speed = QSpinBox()
-            self.obstacle_speed.setRange(1, 10)
-            self.obstacle_speed.setValue(3)
-            self.obstacle_speed.setMaximumWidth(100)
-            layout_obstacle_speed.addWidget(label_obstacle_speed)
-            layout_obstacle_speed.addWidget(self.obstacle_speed)
-            layout_obstacle_speed.insertSpacing(-1,100)
             
-            layout_realism_checkbox =  QHBoxLayout()
-            self.realism_checkbox = QCheckBox('Dynamics check') 
-            self.realism_checkbox.setChecked(1)
-            layout_realism_checkbox.addWidget(self.realism_checkbox)
             
             layout_3 = QVBoxLayout()
-            layout_3.addLayout(layout_obstacle_mode)
             layout_3.addLayout(layout_obstacle_num)
-            layout_3.addLayout(layout_train_speed)
-            layout_3.addLayout(layout_obstacle_speed)
-            layout_3.addLayout(layout_realism_checkbox)
+            
 
     
             self.comp = QGroupBox("Simulation parameters")
@@ -206,16 +170,16 @@ class App(QtGui.QMainWindow):
         hbox_2.addLayout(self.vbox_2)
         vbox.addLayout(hbox_2,5)
         
-        vbox_3 = QVBoxLayout()
-        self.canvas2 = pg.GraphicsLayoutWidget()
-        vbox_3.addWidget(self.canvas2)
-        self.otherplot2 = self.canvas2.addPlot()
-        self.otherplot2.addLegend(size=(1,1),offset=(0,0))
+        # vbox_3 = QVBoxLayout()
+        # self.canvas2 = pg.GraphicsLayoutWidget()
+        # vbox_3.addWidget(self.canvas2)
+        # self.otherplot2 = self.canvas2.addPlot()
+        # self.otherplot2.addLegend(size=(1,1),offset=(0,0))
 
-        self.h4 = self.otherplot2.plot(symbol = None, pen=pg.mkPen("k", width=3), name="Commande")
-        self.h5 = self.otherplot2.plot(symbol = None, pen=pg.mkPen("b", width=3), name="Consigne")
-        self.otherplot2.setLabel("left","Speed")
-        vbox.addLayout(vbox_3,1)
+        # self.h4 = self.otherplot2.plot(symbol = None, pen=pg.mkPen("k", width=3), name="Commande")
+        # self.h5 = self.otherplot2.plot(symbol = None, pen=pg.mkPen("b", width=3), name="Consigne")
+        # self.otherplot2.setLabel("left","Speed")
+        # vbox.addLayout(vbox_3,1)
         
         self.mainbox.setLayout(vbox)
 
@@ -268,7 +232,7 @@ class App(QtGui.QMainWindow):
             experiment_path = os.path.join(file_path, "Experiments")
             res_path = os.path.join(experiment_path, f"results_{idx}.csv")
             
-            dico_meta = {"obs_mode": self.obstacle_mode.currentText().__str__(),
+            dico_meta = {
                          "pilot_mode": self.driver_mode.currentText().__str__(),
                          "model":self.model_selection.currentText().__str__(),
                          "filename":f"results_{idx}.csv",
@@ -302,8 +266,7 @@ class App(QtGui.QMainWindow):
         self.env = TrainEnv(conf)
         
         self.env.reset()
-        self.console.append(f"Simulation launched with parameters: \n" + \
-                            f"   Obstacle: {self.obstacle_mode.currentText().__str__()}")
+        self.console.append("Simulation launched")
 
 
         try:
@@ -316,7 +279,7 @@ class App(QtGui.QMainWindow):
                                     symbolBrush=('b'))
 
 
-        self.otherplot2.setYRange(0, 3, padding=0)
+        #self.otherplot2.setYRange(0, 3, padding=0)
         
         self.i = 0
         self.tx = time.time()
@@ -378,7 +341,7 @@ class App(QtGui.QMainWindow):
         slp = (self.i+1)/self.env_rate - dt
         if slp > 0:
             time.sleep(slp)
-        print(slp)
+        
         self.i+=1
 
         QtCore.QTimer.singleShot(1, self._update)

@@ -46,24 +46,24 @@ class TrainEnv(gym.Env):
         self.env_size = conf_env.get("env_size", 100)
         self.is_action_acc = conf_env.get("is_action_acc",True)
         self.discretize_action_space = conf_env.get("discretize_action_space",True)
-        
-        
+
+
         if self.discretize_action_space:
             self.action_space = spaces.Discrete(3)
         else:
             self.action_space = spaces.Box(
                 low=np.array([-1]), high=np.array([1]), dtype=np.float32)
 
-        
-        self.observation_space = self.obs_builder.observation_space
-        
 
-        self.prev_obs=None                     
-            
+        self.observation_space = self.obs_builder.observation_space
+
+
+        self.prev_obs=None
+
 
         self.n_step = 0
-        
-        
+
+
         if self.render_b:
             self.render_speed_factor = 4
             xmin = 0
@@ -75,12 +75,12 @@ class TrainEnv(gym.Env):
             render_y_bounds = [-5,5]
             plt.xlim(render_x_bounds)
             plt.ylim(render_y_bounds)
-            
+
             plt.hlines(0.5, xmin, xmax)
             plt.hlines(-0.5, xmin, xmax)
             for i in range(xmin,xmax,int((xmax-xmin) /20)):
                 plt.vlines(i, -0.5, 0.5)
-        
+
             plt.pause(2)
 
     def reset(self):
@@ -93,7 +93,7 @@ class TrainEnv(gym.Env):
         self.current_step = 0
         if isinstance(self.obs_builder, ImgSeqObservationBuilder) or isinstance(self.obs_builder, ImgStackObservationBuilder):
             self.obs_builder.reset()
-            
+
         if self.render_b:
             try:
                 self.rec.remove()
@@ -105,12 +105,12 @@ class TrainEnv(gym.Env):
             except Exception as error:
 
                 self.train_coord = plt.scatter(self.train.coord[0], 0, c = "blue")
-                self.train_speed = plt.text(1, 1, str(round(self.train.speed,1)) +"/s")   
+                self.train_speed = plt.text(1, 1, str(round(self.train.speed,1)) +"m/s")
                 self.obstacle_coord = plt.scatter(*self.obstacles.coord.T, marker = "d", c = "red")
                 self.rec = patches.Rectangle((self.train.coord[0], self.train.coord[1] - self.collision_dist_y),
                                              self.collision_dist_x, self.collision_dist_y*2, alpha=0.3,color="orange")
                 self.ax.add_patch(self.rec)
-    
+
         return self._next_observation()
 
 
@@ -121,14 +121,14 @@ class TrainEnv(gym.Env):
     def is_collision(self, previous_dist_x, actual_dist_x, actual_dist_y):
         collisions = (previous_dist_x >= 0) & (actual_dist_x <= 3) & (self.train.speed > 0.15) & (abs(actual_dist_y) < 0.5) # Changement temporaire pour qu'il y ait plus de stimulation
         self.col = collisions.any()
-    
+
     def step(self, action):
     	# Execute one time step within the environment
         self._take_action(action)
 
         # Update train position
         self.train.step(1/self.env_rate)
-                
+
         # Compute and update obs position
         self.obstacles.step(1/self.env_rate)
 
@@ -150,7 +150,7 @@ class TrainEnv(gym.Env):
         #print("ratio",speed_ratio)
 #        reward_speed =  (speed_ratio **2)/self.min_n_step * self.reward_speed_ratio
         reward_speed =  (1 - (speed_ratio **(3/4))) * self.reward_speed_ratio
-        #reward_speed =  self.reward_speed_ratio        
+        #reward_speed =  self.reward_speed_ratio
         reward_col = self.reward_col_ratio * self.col
 
 
@@ -161,16 +161,16 @@ class TrainEnv(gym.Env):
         if self.col:
             col_speed=self.train.speed / self.train.max_speed
         else:
-            col_speed = None                            
+            col_speed = None
         self.n_step+=1
         self.current_step += 1
         if self.render_b:
             self.render()
-        
+
         return self.obs, float(reward), done, {"collision":self.col, "timeout":timeout, "reward_speed":reward_speed, "speed_ratio":speed_ratio, "col_speed":col_speed}
 
     def _take_action(self, action):
-        
+
         if self.is_action_acc:
             if self.discretize_action_space:
                 maintain_speed_action = int((self.action_space.n - 1)/2)
@@ -183,9 +183,9 @@ class TrainEnv(gym.Env):
                     #max_action = f.traction_tram(self.train.speed * 3.6)
                     min_action = f.freinage_TFA(self.train.speed * 3.6)
                     max_action = f.traction_TFA(self.train.speed * 3.6)
-                    norm_action = action / (self.action_space.n - 1) 
+                    norm_action = action / (self.action_space.n - 1)
                     self.action = norm_action * (max_action -  min_action) + min_action
-                
+
             else:
 
 #                min_action = f.freinage_tram(self.train.speed * 3.6)
@@ -199,15 +199,15 @@ class TrainEnv(gym.Env):
             #print("train_speed", self.train.speed)
         else:
             if self.discretize_action_space:
-                self.action = action / (self.action_space.n - 1) 
+                self.action = action / (self.action_space.n - 1)
             else:
                 self.action = ((action +1)/2)
 
-        
+
             self.train.speed = self.action * self.train_max_speed
 
     def render(self, mode='human', close=False):
-        
+
     	# Render the environment to the screen
         try:
             self.train_coord.remove()
@@ -220,7 +220,7 @@ class TrainEnv(gym.Env):
             pass
         self.train_coord = plt.scatter(self.train.coord[0], 0, c = "blue")
         self.train_speed = plt.text(1, 1, str(round(float(self.train.speed),1)) +"/s     "+ str(round(float(self.action),1)))
-        
+
         self.obstacle_coord = plt.scatter(*self.obstacles.coord.T, marker = "d", c = "red")
         self.rec = patches.Rectangle((self.train.coord[0], self.train.coord[1] - self.collision_dist_y),
                                      self.collision_dist_x, self.collision_dist_y*2, alpha=0.3,color="orange")
@@ -231,9 +231,7 @@ class TrainEnv(gym.Env):
 
 
 if __name__ == "__main__":
-    
+
     env = TrainEnv(ImgObservationBuilder, {})
     env.reset()
     env.step([1])
-
-

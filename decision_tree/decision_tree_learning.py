@@ -118,7 +118,6 @@ class DT:
         min_action = 2
 
         for i in range(obs.num_obstacle):
-            print(train_coord)
             action = self.clf.predict([[obs.coord[i][1], obs.coord[i][0] - float(train_coord[0]), train_speed]])
             min_action = min(min_action, action)
 

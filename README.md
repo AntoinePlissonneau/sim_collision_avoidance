@@ -1,7 +1,7 @@
 # sim_collision_avoidance
 [Readme in progress]
 
-## Description
+## Introduction
 
 The purpose of this git is two-fold:
 
@@ -9,7 +9,30 @@ The purpose of this git is two-fold:
  
  - The second one is to provide in open access the simulator 
  
- 
+## Credits
+
+Antoine Plissonneau - Railenium / UPHF LAMIH
+Luca Jourdan - Railenium
+
+Copyright (c) 2022 IRT Railenium. All Rights Reserved.
+
+Copyrights licensed under an Academic/non-profit use license.
+
+See the accompanying LICENSE file for terms.
+
+## Installation
+
+The simplest way to install all the dependencies of this project is to use Anaconda and to create an environment with the environment.yml file: 
+
+```bash
+conda env create -f environment.yml
+conda activate simu_col
+```
+
+
+Torch and Cuda versions are relative to your GPU setup and then may be different that the ones specified in the environment.yml. This requirement file works for Ubuntu 20.04.5 LTS + CUDA 11.4. If you have installation issues, feel free to contact us.
+
+
  ### Test our models
  This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
  

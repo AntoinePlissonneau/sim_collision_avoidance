@@ -147,5 +147,5 @@ Multiple train dynamics are already implemented in```simulation/functions.py```.
 To change the train dynamic in the environment, manually change it in ```simulation/env.py```.
 
 #### Custom reward
-The weights of the reward can be setted in the config file. To create new rewards, directly modify ```simulation/env.py```.
+The weights of the reward can be set in the config file. To create new rewards, directly modify ```simulation/env.py```.
 

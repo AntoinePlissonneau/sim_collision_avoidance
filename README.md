@@ -78,28 +78,61 @@ _Arguments_:
 
 ## Manual driving
 
+You can manually drive the train using:
 ```
 $ python manual_driving.py
 ```
+ Use your keyboard to accelerate ("Z") or brake ("E").
+
+
 
 ## Analyse the data used in the result section of our paper
 The data and scripts used to compute the figures presented in the paper are available in the "Analysis" folder. 
 
  
-## Build a custom agent
+## Build a custom agent / Custom environment
+
+
+### Config file
+
+The config is defined in ```rllib_configs`.py```. It list all the parameters to use for the training of the agent like:
+- The environment parameters
+- The rl algorithm to use and its hyperparameters
+- The model to use to estimate de policy and its hyperparameters
+- ...
+
+You can base your config file on existing configs for several reinforcement learning algorithms implemented in rllib: [https://docs.ray.io/en/latest/rllib/rllib-algorithms.html]
+
+The common parameters of a config file are described here: [https://docs.ray.io/en/latest/rllib/rllib-training.html#common-parameters]
+
 
 ### Custom policy
 
-```
-$ custom_policies_ray.py
-```
 
+You can build your own policy class in ```custom_policies_ray.py```.
+
+
+More information on how to build a custom ray policy: [https://docs.ray.io/en/latest/rllib/rllib-concepts.html].
+
+Note that to train an agent using this policy, you have to register it at the end of the script. Example:
+```
+ModelCatalog.register_custom_model("LowresCNN", LowresCNN)
+```
+and you have to call it in your custom config.Example:
+```
+"model" : {
+	  "custom_model" : "LowresCNN"
+			},
+```
 ### Custom observation builder
 
 ```
-$ observation_builder/obs_builder.py
+observation_builder/obs_builder.py
 ```
-### Custom dynamics
+
+### Custom environment
+
+#### Custom dynamics
 
 ```
 simulation/functions.py
@@ -108,4 +141,9 @@ simulation/functions.py
 simulation/env.py
 ```
 
+#### Custom reward
+
+```
+simulation/env.py
+```
 

@@ -55,13 +55,21 @@ Torch and Cuda versions are relative to your GPU setup and then may be different
 
 ## Train model
 
-Anyone can use configs created in rllib_config.py or add a new one in the same file. These configs are used to setup the experiment. 
+Anyone can use the configurations available in ```rllib_config.py``` or add a new one in the same file (more details behind). These configs are used to setup the experiment. 
+Be careful when selecting the "num_worker", "buffer_size" and "batch_size" values because it depend of your hardware capabilities.
 
 Train an agent with the command:
 
 ```
-$ python training_ray.py
+$ python training_ray.py --config APEX_CNNLSTM_aux_CONFIG --checkpoint_freq 150
 ```
+
+_Arguments_:
+* `--config`: name of the config to use (`str`)
+* `--checkpoint_freq`: The number of training steps before dumping the network parameters (`int`)
+
+The checkpoints, callbacks and experiments params are saved in the folder ```rllib_test/3obs_img/```.
+
 
 ## Test models
 This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
@@ -73,8 +81,8 @@ $ python test_ray.py --checkpoint "rllib_test/3obs_img/CNN_LSTM_aux/checkpoint_0
 _Arguments_:
 * `--checkpoint`: path to the checkpoint to test (`str`)
 * `--show`: If used, display the test scenario
-* `--obs_num`: Number of obstacles to use in test scenario
-* `--num_ep`: Number of episode to test on
+* `--obs_num`: Number of obstacles to use in test scenario (`int`)
+* `--num_ep`: Number of episode to test on (`int`)
 
 ## Manual driving
 
@@ -95,7 +103,7 @@ The data and scripts used to compute the figures presented in the paper are avai
 
 ### Config file
 
-The config is defined in ```rllib_configs`.py```. It list all the parameters to use for the training of the agent like:
+The config is defined in ```rllib_configs.py```. It list all the parameters to use for the training of the agent like:
 - The environment parameters
 - The rl algorithm to use and its hyperparameters
 - The model to use to estimate de policy and its hyperparameters
@@ -126,24 +134,18 @@ and you have to call it in your custom config.Example:
 ```
 ### Custom observation builder
 
-```
-observation_builder/obs_builder.py
-```
+You can build your own observation builder to modify the state representation in input of your model by creating a class in ```observation_builder/obs_builder.py```.
+
+You also have to call it in your custom config.
 
 ### Custom environment
 
 #### Custom dynamics
 
-```
-simulation/functions.py
-```
-```
-simulation/env.py
-```
+Multiple train dynamics are already implemented in```simulation/functions.py```. You can had your own or modify an existing one in this script.
+
+To change the train dynamic in the environment, manually change it in ```simulation/env.py```.
 
 #### Custom reward
-
-```
-simulation/env.py
-```
+The weights of the reward can be setted in the config file. To create new rewards, directly modify ```simulation/env.py```.
 

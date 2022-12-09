@@ -16,13 +16,27 @@ if __name__ == '__main__':
     from ray import tune
     from callbacks import MyCallbacks
     import custom_policies_ray
-    import rllib_configs as configs
+    from rllib_configs import *
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Train the agent')
+
+    parser.add_argument('--config', type=str,
+                         default="APEX_TEST_CONFIG",
+                        help='Configuration dict')
+    parser.add_argument('--checkpoint_freq', type=int,
+                         default=150,
+                        help='Checkpoint save frequency')
+    
+
+    args = parser.parse_args()
+    print(args)
 
     log_dir = "tmp/gym/"
     os.makedirs(log_dir, exist_ok=True)
     env_id = 'myenv-v0'
     
-    policy_config = configs.APEX_TEST_CONFIG
+    policy_config = eval(args.config)
 
     ray.init()
     tune.run(

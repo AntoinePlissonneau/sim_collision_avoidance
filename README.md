@@ -2,16 +2,40 @@
 [Readme in progress]
 
 ## Introduction
+This git project has been made on the context of our paper "Deep reinforcement learning with predictive
+auxiliary task for train collision avoidance" submitted to the journal Transactions on Intelligent Transportation Systems (TITS) 
+(this paper is at this moment under review). 
 
-The purpose of this git is two-fold:
+With this project, the ambition is not only to present implementation of this paper, but also to offer the
+community an easy-to-use and efficient tool for future work on train collision avoidance. 
+Thus, it is easily modular in several aspects. First, in addition to already implemented train dynamics, anyone can
+easily incorporate their own train or obstacle dynamics. An observation builder comes as an external wrapper of the environment,
+allowing to directly build its own state representation (e.g. tabular, image-like, . . . ). In the same way, constructing a
+custom reward function is facilitated by the architecture. The simulation can be run in real time or in accelerated
+time, allowing hours of driving to be simulated in minutes. A graphical visualization can also be activated for training,
+and testing and to enable the possibility of driving the train manually with the keyboard, allowing, among other things, the
+use of imitation learning. In this repo, you will find:
 
- - The first one is to provide the code and the data used for validation of our paper for reproductibility
- 
- - The second one is to provide in open access the simulator 
+- A train collision avoidance simulation environment build on Gym.
+- A manual driving script with a graphical interface enabling the possibility of driving the train
+manually with the keyboard.
+- The models presented in the paper with their best checkpoints (CNN, CNN-LSTM and CNN-LSTM with predictive auxiliary task and decision tree).
+- The data used in the results chapter in the paper.
+- Many tools to build custom policies, observation builder and train dynamics.
+- A train script to train your own models
+- A test script to validate our models or your own
+
+
+
+
+
+
+
  
 ## Credits
 
 Antoine Plissonneau - Railenium / UPHF LAMIH
+
 Luca Jourdan - Railenium
 
 Copyright (c) 2022 IRT Railenium. All Rights Reserved.

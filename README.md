@@ -11,8 +11,18 @@ The purpose of this git is two-fold:
  
  
  ### Test our models
- This git allows to test already trained algorithms in the train obstacle avoidance simulator.
+ This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
  
+```
+$ python test_ray.py --checkpoint "rllib_test/3obs_img/CNN_LSTM_aux/checkpoint_003600/checkpoint-3600" --show --obs_num 3 --num_ep 1000
+```
+
+## Arguments
+* `--checkpoint`: path to the checkpoint to test (`str`)
+* `--show`: If used, display the test scenario
+* `--obs_num`: Number of obstacles to use in test scenario
+* `--num_ep`: Number of episode to test on
+
  ### Analyse the validation data
  
  

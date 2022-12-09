@@ -132,11 +132,22 @@ and you have to call it in your custom config.Example:
 	  "custom_model" : "LowresCNN"
 			},
 ```
+
+The already implemented policies include:
+
+- A CNN
+- A CNN3D
+- A CNN-LSTM
+- A CNN-LSTM with predictive auxiliary task
+
+
 ### Custom observation builder
 
 You can build your own observation builder to modify the state representation in input of your model by creating a class in ```observation_builder/obs_builder.py```.
 
 You also have to call it in your custom config.
+
+
 
 ### Custom environment
 

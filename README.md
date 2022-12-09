@@ -6,7 +6,7 @@ This git project has been made on the context of our paper "Deep reinforcement l
 auxiliary task for train collision avoidance" submitted to the journal Transactions on Intelligent Transportation Systems (TITS) 
 (this paper is at this moment under review). 
 
-With this project, the ambition is not only to present implementation of this paper, but also to offer the
+With this project, the ambition is not only to share the implementation of the works made for this paper, but also to offer the
 community an easy-to-use and efficient tool for future work on train collision avoidance. 
 Thus, it is easily modular in several aspects. First, in addition to already implemented train dynamics, anyone can
 easily incorporate their own train or obstacle dynamics. An observation builder comes as an external wrapper of the environment,
@@ -14,7 +14,9 @@ allowing to directly build its own state representation (e.g. tabular, image-lik
 custom reward function is facilitated by the architecture. The simulation can be run in real time or in accelerated
 time, allowing hours of driving to be simulated in minutes. A graphical visualization can also be activated for training,
 and testing and to enable the possibility of driving the train manually with the keyboard, allowing, among other things, the
-use of imitation learning. In this repo, you will find:
+use of imitation learning. 
+
+In this repo, you will find:
 
 - A train collision avoidance simulation environment built on Gym.
 - A manual driving script with a graphical interface enabling the possibility of driving the train
@@ -24,11 +26,6 @@ manually with the keyboard.
 - Many tools to build custom policies, observation builder and train dynamics.
 - A train script to train your own models
 - A test script to validate our models or your own
-
-
-
-
-
 
 
  
@@ -86,22 +83,29 @@ $ python manual_driving.py
 ```
 
 ## Analyse the data used in the result section of our paper
-The data and scripts used to compute the figures and the table presented in the paper are available in the "Analysis" folder. 
+The data and scripts used to compute the figures presented in the paper are available in the "Analysis" folder. 
 
  
 ## Build a custom agent
 
 ### Custom policy
 
+```
+$ custom_policies_ray.py
+```
+
 ### Custom observation builder
 
-
+```
+$ observation_builder/obs_builder.py
+```
 ### Custom dynamics
 
-
-
-
-
-
+```
+simulation/functions.py
+```
+```
+simulation/env.py
+```
 
 

@@ -73,17 +73,21 @@ The checkpoints, callbacks and experiments params are saved in the folder ```rll
 
 ## Test models
 This git allows to test already trained algorithms in the train obstacle avoidance simulator. Example of use:
- 
+
+
+
 ```
 $ python test_ray.py --checkpoint "rllib_test/3obs_img/CNN_LSTM_aux/checkpoint_003600/checkpoint-3600"  --obs_num 3 --num_ep 1000
 ```
+
+If you want to test the decision tree, you previously have to unzip the file decision_tree/dataset.zip.
 
 _Arguments_:
 * `--checkpoint`: path to the checkpoint to test (`str`)
 * `--show`: If used, display the test scenario. It slows the process because the simulation is made in real time with this option.
 * `--obs_num`: Number of obstacles to use in test scenario (`int`)
 * `--num_ep`: Number of episode to test on (`int`)
-
+* `--decision_tree`: If used a decision tree will be used instead of the RL agent.
 ## Manual driving
 
 You can manually drive the train using:

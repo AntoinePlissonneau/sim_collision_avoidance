@@ -88,13 +88,13 @@ if __name__ == '__main__':
                          default=1000,
                         help='Number of episodes used to test the agent')
 
-    parser.add_argument('--decision_tree', type=bool,
-                     default=False,
-                    help='If true a decision tree will be used instead of the RL agent.')
+    parser.add_argument('--decision_tree', action="store_true",
+                         default=False,
+                    help='If used a decision tree will be used instead of the RL agent.')
 
     parser.add_argument('--decision_tree_params', type=str,
                      default="decision_tree/params.json",
-                    help='The decision tree\'s parameters. Only used if decision_tree is true.')
+                    help='The decision tree\'s parameters. Only used if decision_tree is used.')
 
     args = parser.parse_args()
     print(args)

@@ -14,7 +14,7 @@ dependencies:
   - qtconsole=4.5.5
   - qtpy=1.9.0
   - cudatoolkit=11.3.1
-  - pytorch==1.11.0 
+  - pytorch==1.11.0
   - scikit-learn=1.0.2
   - pip:
     - protobuf==3.20.1
@@ -30,3 +30,4 @@ dependencies:
     - tensorboardx==2.5
     - opencv-python==4.6.0.66
     - pyqtgraph==0.10.0
+    - scikit-learn==1.0.2

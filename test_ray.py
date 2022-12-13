@@ -70,7 +70,9 @@ if __name__ == '__main__':
     import json
     import rllib_configs as configs
     import argparse
-
+    import warnings
+    
+    
     parser = argparse.ArgumentParser(description='Process some integers.')
 
     parser.add_argument('--checkpoint', type=str,
@@ -97,9 +99,15 @@ if __name__ == '__main__':
                      help='The decision tree\'s parameters. Only used if decision_tree is true. \
                         An exemple of parameters file is present in "decision_tree/params.json"')
 
+    parser.add_argument('--warning',action="store_true",
+                         default=False,
+                    help='If used display warnings.')
+
     args = parser.parse_args()
     print(args)
-
+    if not args.warning:
+        warnings.filterwarnings('ignore')
+        
     config_ray_file = os.path.join(os.path.dirname(os.path.dirname(args.checkpoint)), "params.json")
     file=open(config_ray_file)
     policy_config = json.load(file)

@@ -94,7 +94,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--decision_tree_params', type=str,
                      default="decision_tree/params.json",
-                    help='The decision tree\'s parameters. Only used if decision_tree is used.')
+                     help='The decision tree\'s parameters. Only used if decision_tree is true. \
+                        An exemple of parameters file is present in "decision_tree/params.json"')
 
     args = parser.parse_args()
     print(args)

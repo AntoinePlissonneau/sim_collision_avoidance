@@ -3,18 +3,18 @@
 
 ## Introduction
 This git project has been made on the context of our paper "Deep reinforcement learning with predictive
-auxiliary task for train collision avoidance" submitted to the journal Transactions on Intelligent Transportation Systems (TITS) 
-(this paper is at this moment under review). 
+auxiliary task for train collision avoidance" submitted to the journal Transactions on Intelligent Transportation Systems (TITS)
+(this paper is at this moment under review).
 
 With this project, the ambition is not only to share the implementation of the works made for this paper, but also to offer the
-community an easy-to-use and efficient tool for future work on train collision avoidance. 
+community an easy-to-use and efficient tool for future work on train collision avoidance.
 Thus, it is easily modular in several aspects. First, in addition to already implemented train dynamics, anyone can
 easily incorporate their own train or obstacle dynamics. An observation builder comes as an external wrapper of the environment,
 allowing to directly build its own state representation (e.g. tabular, image-like, . . . ). In the same way, constructing a
 custom reward function is facilitated by the architecture. The simulation can be run in real time or in accelerated
 time, allowing hours of driving to be simulated in minutes. A graphical visualization can also be activated for training,
 and testing and to enable the possibility of driving the train manually with the keyboard, allowing, among other things, the
-use of imitation learning. 
+use of imitation learning.
 
 In this repo, you will find:
 
@@ -28,7 +28,7 @@ manually with the keyboard.
 - A test script to validate our models or your own
 
 
- 
+
 ## Credits
 
 Antoine Plissonneau - Railenium / UPHF LAMIH
@@ -43,7 +43,7 @@ See the accompanying LICENSE file for terms.
 
 ## Installation
 
-The simplest way to install all the dependencies of this project is to use Anaconda and to create an environment with the environment.yml file: 
+The simplest way to install all the dependencies of this project is to use Anaconda and to create an environment with the environment.yml file:
 
 ```bash
 conda env create -f environment.yml
@@ -55,7 +55,7 @@ Torch and Cuda versions are relative to your GPU setup and then may be different
 
 ## Train model
 
-Anyone can use the configurations available in ```rllib_config.py``` or add a new one in the same file (more details behind). These configs are used to setup the experiment. 
+Anyone can use the configurations available in ```rllib_config.py``` or add a new one in the same file (more details behind). These configs are used to setup the experiment.
 Be careful when selecting the "num_worker", "buffer_size" and "batch_size" values because it depend of your hardware capabilities.
 
 Train an agent with the command:
@@ -69,6 +69,22 @@ _Arguments_:
 * `--checkpoint_freq`: The number of training steps before dumping the network parameters (`int`)
 
 The checkpoints, callbacks and experiments params are saved in the folder ```rllib_test/3obs_img/```.
+
+
+## Approximate a RL agent using a decision tree
+
+Create a dataset with the command:
+
+```
+$ python decision_tree/data_generation.py --checkpoint "rllib_test/3obs_img/CNN_LSTM_aux/checkpoint_003600/checkpoint-3600" --obs_num 3 --num_ep 1000
+```
+
+_Arguments_:
+* `--checkpoint`: path to the checkpoint of the model to approximate (`str`)
+* `--obs_num`: Number of obstacles to use to constitute the dataset (`int`)
+* `--num_ep`: Number of episode to create the dataset on (`int`)
+
+
 
 
 ## Test models
@@ -88,6 +104,7 @@ _Arguments_:
 * `--obs_num`: Number of obstacles to use in test scenario (`int`)
 * `--num_ep`: Number of episode to test on (`int`)
 * `--decision_tree`: If used a decision tree will be used instead of the RL agent.
+* `--decision_tree_params`: Path to the parameter file of the decision tree to use. Only used if decision_tree is True (`str`)
 ## Manual driving
 
 You can manually drive the train using:
@@ -99,9 +116,9 @@ $ python manual_driving.py
 
 
 ## Analyse the data used in the result section of our paper
-The data and scripts used to compute the figures presented in the paper are available in the "Analysis" folder. 
+The data and scripts used to compute the figures presented in the paper are available in the "Analysis" folder.
 
- 
+
 ## Build a custom agent / Custom environment
 
 
@@ -163,4 +180,3 @@ To change the train dynamic in the environment, manually change it in ```simulat
 
 #### Custom reward
 The weights of the reward can be set in the config file. To create new rewards, directly modify ```simulation/env.py```.
-

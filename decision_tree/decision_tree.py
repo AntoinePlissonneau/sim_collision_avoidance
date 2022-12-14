@@ -2,6 +2,8 @@ from sklearn.tree import DecisionTreeClassifier
 import numpy as np
 import pandas as pd
 import json
+from sklearn import tree
+from sklearn.tree import export_graphviz
 
 
 class DT:
@@ -40,8 +42,8 @@ class DT:
     def load_data(self, csv_file):
         data = pd.read_csv(csv_file)
         data = data.dropna()
-        self.Y = data.iloc[:, -1].to_numpy(dtype=np.int8)
-        self.X = data.iloc[:, :-1].to_numpy(dtype=np.int8)
+        self.Y = data.iloc[:, -1].to_numpy()
+        self.X = data.iloc[:, :-1].to_numpy()
 
 
     def learn_tree(self, X=None, Y=None):
@@ -54,6 +56,11 @@ class DT:
                                     splitter=self.spliter, class_weight=self.weigths)
 
         self.clf.fit(X, Y)
+
+
+    def print_tree(self, features_name):
+        tree.plot_tree(self.clf, feature_names=feature_name)
+        export_graphviz(self.clf, "output_tree.dot", feature_names = feature_name, class_names = ['deceleration', 'do nothing', 'accelerate'])
 
 
     def test_tree(self, test_X, test_Y):
@@ -117,7 +124,8 @@ class DT:
     def compute_action(self, obs, train_coord, train_speed):
         min_action = 2
 
-        for i in range(obs.num_obstacle):
+        for i in range(3):
+            #print(i)
             action = self.clf.predict([[obs.coord[i][1], obs.coord[i][0] - float(train_coord[0]), train_speed]])
             min_action = min(min_action, action)
 

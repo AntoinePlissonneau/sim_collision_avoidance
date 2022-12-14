@@ -103,8 +103,7 @@ _Arguments_:
 * `--show`: If used, display the test scenario. It slows the process because the simulation is made in real time with this option.
 * `--obs_num`: Number of obstacles to use in test scenario (`int`)
 * `--num_ep`: Number of episode to test on (`int`)
-* `--decision_tree`: If used a decision tree will be used instead of the RL agent.
-* `--decision_tree_params`: Path to the parameter file of the decision tree to use. Only used if decision_tree is True (`str`)
+
 ## Manual driving
 
 You can manually drive the train using:

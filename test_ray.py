@@ -19,11 +19,10 @@ import copy
 import glob
 import re
 import matplotlib.pyplot as plt
-import decision_tree.decision_tree_learning as dt
 
 
 
-def eval_agent(env_test, model, ep=5, dt=False):
+def eval_agent(env_test, model, ep=5):
 
     hist = {"collision":[],"timeout":[], "speed_ratio":[], "col_speed":[], "reward":[], "n_step":[]}
     for i in range(ep):
@@ -36,10 +35,8 @@ def eval_agent(env_test, model, ep=5, dt=False):
             print(i)
         while not done:
             n_step += 1
-            if not dt:
-                action = model.compute_action(obs)
-            else:
-                action = model.compute_action(env_test.obstacles, env_test.train.coord, env_test.train.speed)
+            action = model.compute_action(obs)
+
             obs, rewards, done, info = env_test.step(action)
             cum_rew += rewards
             speed_ratio.append(info["speed_ratio"])
@@ -85,17 +82,8 @@ if __name__ == '__main__':
                         help='Number of obstacles to use in the test')
 
     parser.add_argument('--num_ep', type=int,
-                         default=1000,
+                         default=100,
                         help='Number of episodes used to test the agent')
-
-    parser.add_argument('--decision_tree', action="store_true",
-                         default=False,
-                    help='If used a decision tree will be used instead of the RL agent.')
-
-    parser.add_argument('--decision_tree_params', type=str,
-                     default="decision_tree/params.json",
-                     help='The decision tree\'s parameters. Only used if decision_tree is true. \
-                        An exemple of parameters file is present in "decision_tree/params.json"')
 
     args = parser.parse_args()
     print(args)
@@ -130,19 +118,16 @@ if __name__ == '__main__':
 
     policy_config["model"]["custom_model"] = eval(policy_config["model"]["custom_model"])
 
-    if not args.decision_tree :
-        test_agent = dqn.ApexTrainer(env=TrainEnv, config=policy_config)
-        test_agent.restore(args.checkpoint)
-    else :
-        test_agent = dt.DT()
-        test_agent.load_config(args.decision_tree_params)
-        test_agent.learn_tree()
+    test_agent = dqn.ApexTrainer(env=TrainEnv, config=policy_config)
+    test_agent.restore(args.checkpoint)
+
 
     env_test = TrainEnv(policy_config["env_config"])
 
-    hist = eval_agent(env_test, test_agent, ep=args.num_ep, dt=args.decision_tree)
+    hist = eval_agent(env_test, test_agent, ep=args.num_ep)
     #print(hist)
 
+    print(hist["collision"])
     print("collision mean:",np.mean(hist["collision"]))
     print("collision std:",np.std(hist["collision"]))
     print("collision min:",np.min(hist["collision"]))

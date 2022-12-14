@@ -67,6 +67,8 @@ if __name__ == '__main__':
     import json
     import rllib_configs as configs
     import argparse
+    import warnings
+
 
     parser = argparse.ArgumentParser(description='Process some integers.')
 
@@ -85,8 +87,15 @@ if __name__ == '__main__':
                          default=100,
                         help='Number of episodes used to test the agent')
 
+    parser.add_argument('--warning',action="store_true",
+                     default=False,
+                help='If used display warnings.')
+
+
     args = parser.parse_args()
     print(args)
+    if not args.warning:
+        warnings.filterwarnings('ignore')
 
     config_ray_file = os.path.join(os.path.dirname(os.path.dirname(args.checkpoint)), "params.json")
     file=open(config_ray_file)
